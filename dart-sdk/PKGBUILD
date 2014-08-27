@@ -1,0 +1,43 @@
+# Maintainer: Claudio d'Angelis <claudiodangelis at gmail dot com>
+
+pkgname=dart-sdk
+pkgver=1.5.8
+pkgrel=1
+pkgdesc="Tools and libraries for Dart development"
+arch=(i686 x86_64)
+url="https://www.dartlang.org/tools/sdk/"
+license=('BSD 3-Clause')
+provides=('dart-sdk')
+conflicts=('dart-sdk-dev' 'dart-editor')
+makedepends=('unzip')
+
+if [[ ${CARCH} = x86_64 ]]; then
+	source=("http://storage.googleapis.com/dart-archive/channels/stable/release/38663/sdk/dartsdk-linux-x64-release.zip")
+	md5sums=('750ad50c63bf2247488279cc2c5cda1f')
+else
+	source=("https://storage.googleapis.com/dart-archive/channels/stable/release/38663/sdk/dartsdk-linux-ia32-release.zip")
+	md5sums=('2ef6573be8d07f4b651090033206258b')
+fi
+
+package() {
+
+    cd $pkgdir
+
+    mkdir -p opt/dart-sdk usr/bin usr/share/licenses/dart-sdk
+    cp -r $srcdir/dart-sdk/* opt/dart-sdk
+
+    find . -type f -exec chmod 644 "{}" \;
+    find . -type d -exec chmod 755 "{}" \;
+
+    chmod +x opt/dart-sdk/bin/*
+
+    ln -s /opt/dart-sdk/bin/pub            usr/bin/pub
+    ln -s /opt/dart-sdk/bin/dart           usr/bin/dart
+    ln -s /opt/dart-sdk/bin/docgen         usr/bin/docgen
+    ln -s /opt/dart-sdk/bin/dart2js        usr/bin/dart2js
+    ln -s /opt/dart-sdk/bin/dartfmt        usr/bin/dartfmt
+    ln -s /opt/dart-sdk/bin/dartanalyzer   usr/bin/dartanalyzer
+
+    sed -n '2,4p' opt/dart-sdk/bin/dart2js > usr/share/licenses/dart-sdk/license
+
+}
