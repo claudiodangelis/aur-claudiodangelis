@@ -11,6 +11,8 @@ provides=('dart-sdk')
 conflicts=('dart-sdk' 'dart-editor')
 makedepends=('unzip')
 
+
+
 if [[ ${CARCH} = x86_64 ]]; then
 	source=("http://storage.googleapis.com/dart-archive/channels/dev/release/39537/sdk/dartsdk-linux-x64-release.zip")
 	md5sums=('6d9109678aad8925b35efff5391f1f21')
