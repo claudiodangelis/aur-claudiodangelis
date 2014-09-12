@@ -82,7 +82,7 @@ main() {
           version["revision"], md5sum64,md5sum32), '/tmp', 'dartsdk');
 
       });
-      // TODO: create/update ~/.dartAurballGenerator
+      new File(VERSION_FILE).writeAsStringSync(version["revision"]);
     } else {
       print("Dart is up-to-date");
       // Quit
