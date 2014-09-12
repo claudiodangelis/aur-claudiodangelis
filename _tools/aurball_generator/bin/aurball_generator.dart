@@ -52,7 +52,7 @@ main() {
         });
 
         makeAurball('editor', editor.getPkgBuild(version["version"],
-          version["revision"], md5sum64,md5sum32), '/tmp');
+          version["revision"], md5sum64,md5sum32), '/tmp', 'darteditor');
 
       });
 
@@ -79,7 +79,7 @@ main() {
         });
 
         makeAurball('sdk', sdk.getPkgBuild(version["version"],
-          version["revision"], md5sum64,md5sum32), '/tmp');
+          version["revision"], md5sum64,md5sum32), '/tmp', 'dart-sdk');
 
       });
       // TODO: create/update ~/.dartAurballGenerator
@@ -96,7 +96,7 @@ bool isNew(String revision) {
   return (exists && revision != f.readAsStringSync().trim() || !exists);
 }
 
-void makeAurball(String pkgname, String pkgbuild, String path) {
+void makeAurball(String pkgname, String pkgbuild, String path, String zipFilePrefix) {
   print("Making aurball for $pkgname in $path");
   String pkgbuildPath = path + "/PKGBUILD_" + pkgname;
   File f = new File(pkgbuildPath);
@@ -105,6 +105,9 @@ void makeAurball(String pkgname, String pkgbuild, String path) {
   // FIXME ASAP: the actual tarball is generated in the cwd, not cool
   Process.run('mkaurball', ['-p', pkgbuildPath]).then((_) {
     f.deleteSync();
-    print("Completed making aurball for $pkgname");
+    // TODO: find a more elegant way to do this
+    Process.run('rm', [zipFilePrefix + '*.zip']).then((_) {
+      print("Completed making aurball for $pkgname");
+    });
   });
 }
