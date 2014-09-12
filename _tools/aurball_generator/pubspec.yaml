@@ -1,1 +1,3 @@
 name: aurball_generator
+dependencies:
+  http: any
