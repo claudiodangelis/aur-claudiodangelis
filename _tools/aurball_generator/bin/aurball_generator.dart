@@ -79,7 +79,7 @@ main() {
         });
 
         makeAurball('sdk', sdk.getPkgBuild(version["version"],
-          version["revision"], md5sum64,md5sum32), '/tmp', 'dart-sdk');
+          version["revision"], md5sum64,md5sum32), '/tmp', 'dartsdk');
 
       });
       // TODO: create/update ~/.dartAurballGenerator
