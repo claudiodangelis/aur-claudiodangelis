@@ -106,7 +106,7 @@ void makeAurball(String pkgname, String pkgbuild, String path, String zipFilePre
   Process.run('mkaurball', ['-p', pkgbuildPath]).then((_) {
     f.deleteSync();
     // TODO: find a more elegant way to do this
-    Process.run('rm', [zipFilePrefix + '*.zip']).then((_) {
+    Process.run('bash', ['-c', 'rm  $zipFilePrefix*.zip']).then((_) {
       print("Completed making aurball for $pkgname");
     });
   });
