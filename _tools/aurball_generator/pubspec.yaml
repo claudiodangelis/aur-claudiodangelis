@@ -1,3 +1,4 @@
 name: aurball_generator
 dependencies:
+  html5lib: any
   http: any
