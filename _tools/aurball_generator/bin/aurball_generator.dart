@@ -7,6 +7,7 @@ import 'package:aurball_generator/editor.dart' as editor;
 
 import 'package:html5lib/parser.dart' show parse;
 import 'package:html5lib/dom.dart';
+import 'package:logging/logging.dart';
 
 final String USER_HOME = "/home/dawson";
 final String VERSION_URI =
@@ -18,8 +19,15 @@ final String EDITOR_URI =
 final String SDK_URI =
     "http://gsdview.appspot.com/dart-archive/channels/dev/release/latest/sdk/";
 
+final Logger log = new Logger('Aurball Generator');
+
 main() {
-  // TODO: use a logger
+
+  Logger.root.level = Level.ALL;
+  Logger.root.onRecord.listen((LogRecord rec) {
+    print('[${rec.level.name}] ${rec.time} ${rec.message}');
+  });
+
   // Fetch VERSION
   Map<String, String> version;
   print("Fetching latest version...");
