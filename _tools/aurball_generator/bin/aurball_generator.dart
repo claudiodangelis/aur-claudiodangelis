@@ -30,12 +30,12 @@ main() {
 
   // Fetch VERSION
   Map<String, String> version;
-  print("Fetching latest version...");
+  log.info("Fetching latest version...");
   http.get(VERSION_URI).then((http.Response resp) {
     version = JSON.decode(resp.body);
-    print("Latest version: $version");
+    log.info("Latest version: $version");
     if (isNew(version["revision"])) {
-      print("Starting the process");
+      log.info("Starting the process");
       // Get:
       // Editor data:
       http.get(EDITOR_URI).then((http.Response resp) {
@@ -92,7 +92,7 @@ main() {
       });
       new File(VERSION_FILE).writeAsStringSync(version["revision"]);
     } else {
-      print("Dart is up-to-date");
+      log.info("Dart is up-to-date");
       // Quit
     }
   });
@@ -105,7 +105,7 @@ bool isNew(String revision) {
 }
 
 void makeAurball(String pkgname, String pkgbuild, String path, String zipFilePrefix) {
-  print("Making aurball for $pkgname in $path");
+  log.info("Making aurball for $pkgname in $path");
   String pkgbuildPath = path + "/PKGBUILD_" + pkgname;
   File f = new File(pkgbuildPath);
   f.writeAsStringSync(pkgbuild);
@@ -115,7 +115,7 @@ void makeAurball(String pkgname, String pkgbuild, String path, String zipFilePre
     f.deleteSync();
     // TODO: find a more elegant way to do this
     Process.run('bash', ['-c', 'rm  $zipFilePrefix*.zip']).then((_) {
-      print("Completed making aurball for $pkgname");
+      log.info("Completed making aurball for $pkgname");
     });
   });
 }
