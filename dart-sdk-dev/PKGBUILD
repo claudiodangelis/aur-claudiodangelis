@@ -1,8 +1,8 @@
 # Maintainer: Claudio d'Angelis <claudiodangelis at gmail dot com>
 
 pkgname=dart-sdk-dev
-pkgver=1.7.0_dev.0.1
-pkgrel=2
+pkgver=1.7.0_dev.3.0
+pkgrel=1
 pkgdesc="Tools and libraries for Dart development (development channel)"
 arch=(i686 x86_64)
 url="https://www.dartlang.org/tools/sdk/"
@@ -11,16 +11,12 @@ provides=('dart-sdk')
 conflicts=('dart-sdk' 'dart-editor')
 makedepends=('unzip')
 
-revision=39661
-md5sum64=aedce3ed87b6910380085af4082e9d2e
-md5sum32=816192b7e9918568c89d9be9eeaa12bd
-
 if [[ ${CARCH} = x86_64 ]]; then
-	source=("https://storage.googleapis.com/dart-archive/channels/dev/release/$revision/sdk/dartsdk-linux-x64-release.zip")
-	md5sums=("$md5sum64")
+  source=("https://storage.googleapis.com/dart-archive/channels/dev/release/40302/sdk/dartsdk-linux-x64-release.zip")
+  md5sums=("1b98e5a5df3f90e1f50e695ce23c672a")
 else
-	source=("https://storage.googleapis.com/dart-archive/channels/dev/release/$revision/sdk/dartsdk-linux-ia32-release.zip")
-	md5sums=("$md5sum32")
+  source=("https://storage.googleapis.com/dart-archive/channels/dev/release/40302/sdk/dartsdk-linux-ia32-release.zip")
+  md5sums=("72d7c8b959a9a9bc08f4f3f40ec77dc5")
 fi
 
 package() {
@@ -30,8 +26,8 @@ package() {
     mkdir -p opt/dart-sdk usr/bin usr/share/licenses/dart-sdk
     cp -r $srcdir/dart-sdk/* opt/dart-sdk
 
-    find . -type f -exec chmod 644 "{}" \;
-    find . -type d -exec chmod 755 "{}" \;
+    find . -type f -exec chmod 644 "{}" ;
+    find . -type d -exec chmod 755 "{}" ;
 
     chmod +x opt/dart-sdk/bin/*
 
