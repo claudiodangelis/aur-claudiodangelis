@@ -26,10 +26,10 @@ fi
 
 package() {
 
-    cd \$pkgdir
+    cd "\$pkgdir"
 
     mkdir -p opt/dart-sdk usr/bin usr/share/licenses/dart-sdk
-    cp -r \$srcdir/dart-sdk/* opt/dart-sdk
+    cp -r "\$srcdir"/dart-sdk/* opt/dart-sdk
 
     find . -type f -exec chmod 644 "{}" \;
     find . -type d -exec chmod 755 "{}" \;
